@@ -19,47 +19,64 @@ Systematic methodology for transforming raw client input into implementation-rea
 
 **You MUST use these skills at the appropriate phase.** This is not optional — each skill enforces discipline that prevents costly mistakes.
 
-### Project Lifecycle Flow
+### Full Project Lifecycle
 
 ```
-Discovery & Planning:
-  superpowers:brainstorming          → Before discovery if client has vague idea
-  THIS SKILL (new-laravel-project)   → Discovery phases 1-7
-  superpowers:writing-plans          → After spec is approved, create implementation plan
-
-Implementation:
-  superpowers:executing-plans        → Execute the plan in a separate session
-  superpowers:subagent-driven-development → Execute independent tasks in parallel
-  superpowers:dispatching-parallel-agents → When 2+ tasks have no dependencies
-  superpowers:test-driven-development    → Before writing ANY implementation code
-  superpowers:using-git-worktrees    → Isolate feature work from main workspace
-  superpowers:systematic-debugging   → When any bug or unexpected behavior occurs
-
-Quality & Review:
-  superpowers:requesting-code-review → After completing a task or feature
-  superpowers:receiving-code-review  → When processing review feedback
-  superpowers:verification-before-completion → Before claiming work is done
-
-Completion:
-  superpowers:finishing-a-development-branch → When implementation is complete, decide merge/PR/cleanup
+┌─────────────────────────────────────────────────────────────┐
+│  DISCOVERY & PLANNING                                       │
+│                                                             │
+│  1. superpowers:brainstorming (if vague idea)               │
+│     ↓                                                       │
+│  2. new-laravel-project — Phases 1-7                        │
+│     ↓                                                       │
+│  3. Client approves spec                                    │
+│     ↓                                                       │
+│  4. superpowers:writing-plans → implementation plan          │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│  IMPLEMENTATION (per task from plan)                         │
+│                                                             │
+│  5. superpowers:using-git-worktrees → isolate feature        │
+│     ↓                                                       │
+│  6. superpowers:test-driven-development → write test FIRST   │
+│     ↓                                                       │
+│  7. Implement code to pass test                              │
+│     ↓                                                       │
+│  8. superpowers:systematic-debugging (if test fails)         │
+│     ↓                                                       │
+│  9. superpowers:verification-before-completion → verify done │
+│     ↓                                                       │
+│  10. superpowers:requesting-code-review → review the work    │
+│     ↓                                                       │
+│  11. superpowers:receiving-code-review (if feedback comes)   │
+│     ↓                                                       │
+│  12. superpowers:finishing-a-development-branch → merge/PR   │
+│                                                             │
+│  Parallelization (when plan has independent tasks):         │
+│  • superpowers:subagent-driven-development                  │
+│  • superpowers:dispatching-parallel-agents                  │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│  REPEAT steps 5-12 for each task in the plan                │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### When to Use Each Skill
+### Quick Reference
 
-| Skill | When | Why |
-|-------|------|-----|
-| **brainstorming** | Client has vague idea, can't describe features | Shapes the idea before structured discovery begins |
-| **writing-plans** | Spec approved, ready to plan implementation | Creates step-by-step plan from spec — no code without a plan |
-| **executing-plans** | Have a written plan, starting implementation | Executes plan with review checkpoints between steps |
-| **subagent-driven-development** | Plan has independent tasks | Parallelizes work via subagents for faster execution |
-| **dispatching-parallel-agents** | 2+ tasks with no shared state | Runs independent tasks simultaneously |
-| **test-driven-development** | Before writing ANY feature or bugfix code | Write test first, watch it fail, then implement. No exceptions. |
-| **using-git-worktrees** | Starting feature work | Isolates work so main branch stays clean |
-| **systematic-debugging** | Bug, test failure, unexpected behavior | Diagnose root cause before proposing fixes — no guessing |
-| **requesting-code-review** | Task/feature complete | Verifies work meets requirements before merge |
-| **receiving-code-review** | Got review feedback | Evaluate feedback technically — don't blindly agree or dismiss |
-| **verification-before-completion** | About to claim "done" | Run verification commands, confirm output. Evidence before assertions. |
-| **finishing-a-development-branch** | All tests pass, ready to integrate | Structured decision: merge, PR, or cleanup |
+| # | Skill | Trigger |
+|---|-------|---------|
+| 1 | **superpowers:brainstorming** | Client can't describe features → shape idea first |
+| 2 | **new-laravel-project** | Requirements exist → run Phases 1-7 discovery |
+| 3 | **superpowers:writing-plans** | Spec approved → create implementation plan |
+| 4 | **superpowers:using-git-worktrees** | Starting a task → isolate in worktree |
+| 5 | **superpowers:test-driven-development** | Before ANY code → write test first |
+| 6 | **superpowers:systematic-debugging** | Bug or test failure → diagnose root cause |
+| 7 | **superpowers:verification-before-completion** | About to claim "done" → run checks, show evidence |
+| 8 | **superpowers:requesting-code-review** | Task complete → review against requirements |
+| 9 | **superpowers:receiving-code-review** | Got feedback → evaluate technically, don't blindly agree |
+| 10 | **superpowers:finishing-a-development-branch** | All tests pass → merge, PR, or cleanup |
+| 11 | **superpowers:subagent-driven-development** | Plan has independent tasks → parallelize via subagents |
+| 12 | **superpowers:dispatching-parallel-agents** | 2+ tasks, no shared state → run simultaneously |
 
 ## Before You Start: Brainstorming Gate
 
@@ -770,6 +787,20 @@ Same structure for all tiers. Scale the effort:
 2. Blind spot analysis (what's NOT documented?)
 3. OQ cleanup (merge duplicates, classify priorities)
 4. Consistency check (numbers, statuses, field names match across docs)
+
+---
+
+## After Phase 7: Transition to Implementation
+
+**Discovery is complete. Next steps — in order:**
+
+1. **Client reviews & approves spec** — wait for sign-off before proceeding
+2. **Invoke `superpowers:writing-plans`** — creates detailed implementation plan from the approved spec
+3. **Invoke `superpowers:using-git-worktrees`** — isolate implementation work
+4. **For each task: `superpowers:test-driven-development`** — write test first, then implement
+5. **After each task: `superpowers:verification-before-completion`** → `superpowers:requesting-code-review`** → `superpowers:finishing-a-development-branch`**
+
+**Do NOT skip any step. Do NOT write code without a plan. Do NOT write code without a test.**
 
 ---
 
