@@ -251,6 +251,14 @@ The most complex header. Requires per-project planning:
 
 ---
 
+## AI-Assisted Development
+
+| Decision | What to define | Why it matters |
+|----------|---------------|----------------|
+| **Laravel Boost (required)** | Install `laravel/boost` as dev dependency on every Laravel project. It's an official Laravel MCP server that gives AI agents deep context about your codebase — schema, routes, config, logs, errors, documentation. Run `composer require laravel/boost --dev && php artisan boost:install`. | Without Boost, AI agents work blind — guessing your schema, routes, and config. With Boost, they see your actual database structure, read your logs, query your data via Tinker, search Laravel docs (17,000+ entries), and understand your application's real state. The difference between "write me a migration" (generic) and "write me a migration for the existing users table with these exact columns" (informed). |
+
+---
+
 ## Other Architecture Decisions
 
 | Decision | When to include | What to decide |
@@ -348,3 +356,4 @@ The most complex header. Requires per-project planning:
 | No API versioning | Any breaking change breaks all clients. Version from the start — retrofitting is painful. |
 | Backups never tested | "We have backups" → restore fails during crisis. Test quarterly. Measure restore time. |
 | No recovery objectives defined | RTO/RPO undefined = no idea if backup strategy matches business needs until disaster hits. |
+| No Laravel Boost installed | AI agents work blind without codebase context. Install day 1: `composer require laravel/boost --dev`. |

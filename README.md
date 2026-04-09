@@ -31,7 +31,7 @@ Systematic methodology for the gap between "client says what they want" and "dev
 
 ## Full Project Lifecycle
 
-This skill integrates with 12 superpowers skills to cover the entire project from idea to production:
+This skill integrates with 12 superpowers skills + Laravel Boost to cover the entire project from idea to production:
 
 ```
 DISCOVERY & PLANNING
@@ -39,18 +39,22 @@ DISCOVERY & PLANNING
   2. new-laravel-project (this skill)    → Phases 1-7 discovery
   3. superpowers:writing-plans           → Implementation plan from spec
 
+PROJECT SETUP (once)
+  4. Laravel Boost                       → composer require laravel/boost --dev
+                                           Gives AI agents deep codebase context via MCP
+
 IMPLEMENTATION (per task)
-  4. superpowers:using-git-worktrees     → Isolate feature work
-  5. superpowers:test-driven-development → Write test FIRST
-  6. superpowers:systematic-debugging    → If bug or test failure
-  7. superpowers:verification-before-completion → Verify before claiming done
-  8. superpowers:requesting-code-review  → Review the work
-  9. superpowers:receiving-code-review   → Process review feedback
-  10. superpowers:finishing-a-development-branch → Merge / PR / cleanup
+  5. superpowers:using-git-worktrees     → Isolate feature work
+  6. superpowers:test-driven-development → Write test FIRST
+  7. superpowers:systematic-debugging    → If bug or test failure
+  8. superpowers:verification-before-completion → Verify before claiming done
+  9. superpowers:requesting-code-review  → Review the work
+  10. superpowers:receiving-code-review  → Process review feedback
+  11. superpowers:finishing-a-development-branch → Merge / PR / cleanup
 
 PARALLELIZATION (when tasks are independent)
-  11. superpowers:subagent-driven-development
-  12. superpowers:dispatching-parallel-agents
+  12. superpowers:subagent-driven-development
+  13. superpowers:dispatching-parallel-agents
 ```
 
 **No code without a plan. No code without a test.**
@@ -98,19 +102,20 @@ The skill auto-scales: a T1 brochure site skips 80% of the process. A T3 marketp
 
 ## Coding Standards Highlights
 
-The `coding-standards.md` file covers 19 architecture categories with 47 common mistakes. Key sections:
+The `coding-standards.md` file covers 20 architecture categories with 48 common mistakes. Key sections:
 
 - **Code Architecture** — strict typing, services, validation, authorization, events, enums, named routes
 - **Security** — CORS policy (7 rules), security headers (7 + CSP), rate limiting, file upload security, session management
 - **Data** — migrations (schema only), factories/seeders, indexing, soft delete policy
 - **Operations** — deployment checklist (6 stages), backup & disaster recovery (RTO/RPO), logging, environment management
+- **AI-Assisted Development** — Laravel Boost as required MCP server for AI agent codebase context
 - **Quality** — test pyramid, TDD, CI enforcement, accessibility (EU 2025 legal requirement)
 - **API** — versioning strategy, error response consistency, breaking change policy
 
 ## Key design decisions
 
 - **Laravel-focused** — coding standards, architecture rules, and recommendations tailored for Laravel ecosystem
-- **Superpowers-integrated** — full project lifecycle from brainstorming through implementation with 12 skill invocation points
+- **Superpowers-integrated** — full project lifecycle from brainstorming through implementation with 13 invocation points (12 skills + Laravel Boost)
 - **Brainstorming gate** — if the client has a vague idea ("I want an app for X"), the skill redirects to brainstorming first, then returns for structured analysis
 - **Open question tracking** — every ambiguity becomes a tracked OQ with options and recommendations, not a silent assumption
 - **No code without a plan, no code without a test** — enforced via superpowers:writing-plans and superpowers:test-driven-development

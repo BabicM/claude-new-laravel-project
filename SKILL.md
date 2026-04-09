@@ -34,49 +34,57 @@ Systematic methodology for transforming raw client input into implementation-rea
 │  4. superpowers:writing-plans → implementation plan          │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
+│  PROJECT SETUP (once, before first task)                     │
+│                                                             │
+│  5. Install Laravel Boost (composer require laravel/boost    │
+│     --dev && php artisan boost:install)                      │
+│     → Gives AI agents deep codebase context via MCP         │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
 │  IMPLEMENTATION (per task from plan)                         │
 │                                                             │
-│  5. superpowers:using-git-worktrees → isolate feature        │
+│  6. superpowers:using-git-worktrees → isolate feature        │
 │     ↓                                                       │
-│  6. superpowers:test-driven-development → write test FIRST   │
+│  7. superpowers:test-driven-development → write test FIRST   │
 │     ↓                                                       │
-│  7. Implement code to pass test                              │
+│  8. Implement code to pass test                              │
 │     ↓                                                       │
-│  8. superpowers:systematic-debugging (if test fails)         │
+│  9. superpowers:systematic-debugging (if test fails)         │
 │     ↓                                                       │
-│  9. superpowers:verification-before-completion → verify done │
+│  10. superpowers:verification-before-completion → verify done│
 │     ↓                                                       │
-│  10. superpowers:requesting-code-review → review the work    │
+│  11. superpowers:requesting-code-review → review the work    │
 │     ↓                                                       │
-│  11. superpowers:receiving-code-review (if feedback comes)   │
+│  12. superpowers:receiving-code-review (if feedback comes)   │
 │     ↓                                                       │
-│  12. superpowers:finishing-a-development-branch → merge/PR   │
+│  13. superpowers:finishing-a-development-branch → merge/PR   │
 │                                                             │
 │  Parallelization (when plan has independent tasks):         │
 │  • superpowers:subagent-driven-development                  │
 │  • superpowers:dispatching-parallel-agents                  │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
-│  REPEAT steps 5-12 for each task in the plan                │
+│  REPEAT steps 6-13 for each task in the plan                │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ### Quick Reference
 
-| # | Skill | Trigger |
+| # | Skill / Tool | Trigger |
 |---|-------|---------|
 | 1 | **superpowers:brainstorming** | Client can't describe features → shape idea first |
 | 2 | **new-laravel-project** | Requirements exist → run Phases 1-7 discovery |
 | 3 | **superpowers:writing-plans** | Spec approved → create implementation plan |
-| 4 | **superpowers:using-git-worktrees** | Starting a task → isolate in worktree |
-| 5 | **superpowers:test-driven-development** | Before ANY code → write test first |
-| 6 | **superpowers:systematic-debugging** | Bug or test failure → diagnose root cause |
-| 7 | **superpowers:verification-before-completion** | About to claim "done" → run checks, show evidence |
-| 8 | **superpowers:requesting-code-review** | Task complete → review against requirements |
-| 9 | **superpowers:receiving-code-review** | Got feedback → evaluate technically, don't blindly agree |
-| 10 | **superpowers:finishing-a-development-branch** | All tests pass → merge, PR, or cleanup |
-| 11 | **superpowers:subagent-driven-development** | Plan has independent tasks → parallelize via subagents |
-| 12 | **superpowers:dispatching-parallel-agents** | 2+ tasks, no shared state → run simultaneously |
+| 4 | **Laravel Boost** | Project created → `composer require laravel/boost --dev && php artisan boost:install` |
+| 5 | **superpowers:using-git-worktrees** | Starting a task → isolate in worktree |
+| 6 | **superpowers:test-driven-development** | Before ANY code → write test first |
+| 7 | **superpowers:systematic-debugging** | Bug or test failure → diagnose root cause |
+| 8 | **superpowers:verification-before-completion** | About to claim "done" → run checks, show evidence |
+| 9 | **superpowers:requesting-code-review** | Task complete → review against requirements |
+| 10 | **superpowers:receiving-code-review** | Got feedback → evaluate technically, don't blindly agree |
+| 11 | **superpowers:finishing-a-development-branch** | All tests pass → merge, PR, or cleanup |
+| 12 | **superpowers:subagent-driven-development** | Plan has independent tasks → parallelize via subagents |
+| 13 | **superpowers:dispatching-parallel-agents** | 2+ tasks, no shared state → run simultaneously |
 
 ## Before You Start: Brainstorming Gate
 
