@@ -1,8 +1,13 @@
+---
+name: coding-standards
+description: Use when starting any custom-built web project, setting up a new codebase, or defining architecture rules before writing code. Covers code architecture, security headers, CORS, error handling, logging, deployment, testing, and common mistakes.
+---
+
 # Coding Standards & Architecture Rules
 
-Universal rules for the coding standards deliverable (Phase 5). Referenced from SKILL.md.
+Universal architecture rules and coding standards for any custom-built web project, regardless of tech stack.
 
-**Applies to:** All custom-built T2-T3 projects, regardless of tech stack.
+**Use standalone** for any new project, or as part of the `project-discovery-to-spec` skill (Phase 5 deliverable).
 
 ---
 
@@ -125,6 +130,61 @@ The most complex header. Requires per-project planning:
 
 ---
 
+## Rate Limiting & Throttling
+
+| Decision | What to define | Why it matters |
+|----------|---------------|----------------|
+| **Authentication endpoints** | Strict limits on login, password reset, registration, 2FA verification. Example: 5 attempts per minute per IP, then lockout with exponential backoff. | Without rate limiting, attackers brute-force passwords, stuff credentials, or flood password reset emails. Login is the #1 target. |
+| **API endpoints** | Per-user/per-key rate limits. Return `429 Too Many Requests` with `Retry-After` header. Different tiers for different plans (if SaaS). | One misbehaving client or bot can DoS your API for all users. Rate limits protect shared resources. |
+| **Form submissions** | Contact forms, comments, reviews, file uploads — limit per IP and per user. Combine with CSRF protection. | Spam bots hit every unprotected form. Without limits: 10,000 spam submissions overnight, email queue overwhelmed, storage filled. |
+| **Response headers** | Include `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset` in API responses. | Clients need to know their limits to implement backoff. Without headers, they learn limits by hitting them — generating unnecessary 429s. |
+
+---
+
+## File Upload Security
+
+| Decision | What to define | Why it matters |
+|----------|---------------|----------------|
+| **MIME type validation** | Validate both the file extension AND the actual file content (magic bytes). Never trust only the extension or `Content-Type` header — both are user-controlled. | A `.jpg` file can contain PHP/JS code. If your server executes it, attacker has remote code execution. Validate the actual file bytes. |
+| **Storage location** | Store uploads outside the web root. Serve through application (with auth checks) or via signed URLs with expiry. Never allow direct URL access to raw uploaded files. | Files in the web root can be accessed directly by URL. If an attacker uploads a `.php` file, they navigate to it and execute arbitrary code on your server. |
+| **No executable uploads** | Reject: `.php`, `.js`, `.sh`, `.exe`, `.bat`, `.cmd`, `.svg` (can contain JS), `.html` (can contain JS). Whitelist allowed types, don't blacklist dangerous ones. | Blacklists miss variations (`.phtml`, `.php5`, `.shtml`). Whitelisting allowed types (`.jpg`, `.png`, `.pdf`, `.docx`) is the only safe approach. |
+| **Size limits per type** | Define max file size per upload type: avatar (2MB), document (10MB), video (500MB). Enforce on both client (fast feedback) and server (security). | Client-only validation is bypassable. Server-only validation wastes bandwidth on huge files. A missing limit = one user uploads 10GB, fills your disk. |
+| **Filename sanitization** | Generate a random filename on upload. Never use the original filename in the storage path. Store original name in database for display only. | Original filenames can contain path traversal (`../../etc/passwd`), special characters that break URLs, or be impossibly long. Random names eliminate all these risks. |
+
+---
+
+## Session Management
+
+| Decision | What to define | Why it matters |
+|----------|---------------|----------------|
+| **Session expiry** | Define idle timeout (e.g., 30 min inactive) and absolute timeout (e.g., 8 hours regardless of activity). Shorter for admin/sensitive roles. | No expiry = sessions live forever. Shared computer: next user has full access. Stolen session token: usable indefinitely. |
+| **Invalidation on credential change** | When password changes, email changes, or role changes: invalidate ALL other sessions for that user. Force re-login. | User changes password because they suspect compromise. If old sessions stay active, the attacker still has access. The password change accomplished nothing. |
+| **Concurrent session policy** | Decide: unlimited sessions? Max N sessions? New login kills oldest? Show active sessions with "log out everywhere" option? | User logs in from 50 devices (or an attacker does). Without a policy, you can't tell and the user can't revoke. "Active sessions" list is both security and UX. |
+| **Session fixation prevention** | Regenerate session ID after login, after privilege escalation, and after any authentication state change. | Attacker sets a known session ID before victim logs in. After login, attacker uses the same ID = full access. Regenerating the ID on auth change prevents this. |
+
+---
+
+## API Versioning
+
+| Decision | What to define | Why it matters |
+|----------|---------------|----------------|
+| **Versioning strategy** | Choose one: URL path (`/api/v1/`), header (`Accept: application/vnd.api.v1+json`), or query param (`?version=1`). URL path is simplest and most common. | Without versioning, any breaking change breaks all clients simultaneously. With versioning, old clients keep working while new clients use the updated API. |
+| **Breaking change policy** | Define what counts as breaking: removing a field, renaming a field, changing a type, changing behavior. Adding fields is NOT breaking. | "We'll figure it out when we need to" = accidental breaking changes with no migration path. Define the contract upfront. |
+| **Deprecation process** | Old version supported for X months after new version launches. Deprecation header in responses. Notify consumers. | Surprise removal of API version = broken integrations. Grace period + headers let consumers migrate at their pace. |
+
+---
+
+## Backup & Disaster Recovery
+
+| Decision | What to define | Why it matters |
+|----------|---------------|----------------|
+| **Automated backups** | Database: daily automated backups with N-day retention (minimum 7, recommend 30). Media/uploads: replicated to separate storage/region. | Manual backups = forgotten backups. Daily automated with retention means you can recover from yesterday's state, or last week's. |
+| **Tested restore procedure** | Test restore from backup at least quarterly. Document the exact steps. Measure restore time. **Untested backups are not backups.** | "We have backups" → disaster hits → restore fails because format changed, credentials expired, or nobody knows the procedure. You discover this during the crisis, not before. |
+| **Recovery time objective (RTO)** | Define: how long can the site be down? 1 hour? 4 hours? 24 hours? This determines your infrastructure investment. | If acceptable downtime is 1 hour but restore takes 6 hours, you need a different backup strategy (hot standby, read replica promotion). Know the gap before it matters. |
+| **Recovery point objective (RPO)** | Define: how much data loss is acceptable? Zero (real-time replication)? 1 hour? 24 hours? | Daily backups = up to 24 hours of data loss. For an e-shop processing 100 orders/day, that's 100 lost orders. RPO determines backup frequency. |
+
+---
+
 ## Error Handling
 
 | Decision | What to define | Why it matters |
@@ -178,15 +238,6 @@ The most complex header. Requires per-project planning:
 | **Regular update schedule** | Define cadence: security updates immediately, minor updates monthly, major updates quarterly. Assign responsibility. | Ignoring updates for a year → 200 outdated packages, security vulnerabilities, impossible upgrade path. Regular small updates are painless; annual big-bang updates are projects. |
 | **Security scanning in CI** | Run dependency vulnerability scanner in CI pipeline. Fail the build on known critical vulnerabilities. | Known vulnerabilities in published packages are the #1 attack vector for web apps. Automated scanning catches them before deployment. |
 | **Version ranges, not exact pins** | Use version ranges (`^8.0`, `~3.2`) unless you have a specific reason to pin exact versions. | Exact pins prevent receiving security patches automatically. Ranges allow compatible updates. Pin only when a specific version has a known compatibility issue. |
-
----
-
-## Database Design Rules
-
-| Decision | What to define | Why it matters |
-|----------|---------------|----------------|
-| **Indexing strategy** | Index: all foreign keys, columns used in WHERE/ORDER BY frequently, unique constraints. Don't over-index (slows writes). Review slow query log monthly. Plan composite indexes for common multi-column query patterns. | Missing index on a foreign key → full table scan on every JOIN. Over-indexed table → every INSERT takes 5x longer. Neither is visible until production traffic hits. |
-| **Soft delete policy** | Decide per entity: hard delete or soft delete? Soft-deleted records leak into queries if not handled — deleted users showing in search, deleted products in reports. Define: which entities get soft delete, default query scope excluding deleted, cascade rules (delete parent → children?), purge schedule (permanently remove after 90 days). | "We soft delete everything" → database grows forever, queries slow down, GDPR compliance complicated ("right to be forgotten" vs "soft deleted"). Decide deliberately per entity. |
 
 ---
 
@@ -289,3 +340,11 @@ The most complex header. Requires per-project planning:
 | No database indexing strategy | Missing index on FK = full table scan on every JOIN. Review slow query log monthly. |
 | "Soft delete everything" | Soft deletes leak into queries, bloat database, complicate GDPR. Decide per entity. |
 | Accessibility ignored until launch | EU legal requirement since 2025. Semantic HTML + keyboard nav + contrast = 80% of compliance. Retrofit is 10x harder. |
+| No rate limiting on login | Brute force, credential stuffing, spam. Rate limit auth endpoints day 1. 5 attempts/min + lockout. |
+| File uploads trusted blindly | Validate MIME type (magic bytes, not just extension). Store outside webroot. Whitelist allowed types. |
+| Original filenames used in storage | Path traversal, special characters, collisions. Generate random names, store originals in DB only. |
+| No session expiry | Sessions live forever = stolen tokens usable indefinitely. Define idle + absolute timeout. |
+| Sessions survive password change | User changes password due to compromise, attacker's session still works. Invalidate all on credential change. |
+| No API versioning | Any breaking change breaks all clients. Version from the start — retrofitting is painful. |
+| Backups never tested | "We have backups" → restore fails during crisis. Test quarterly. Measure restore time. |
+| No recovery objectives defined | RTO/RPO undefined = no idea if backup strategy matches business needs until disaster hits. |

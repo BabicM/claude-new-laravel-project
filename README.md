@@ -55,7 +55,7 @@ The skill files are plain Markdown — readable and usable by any AI assistant o
 | File | Purpose |
 |------|---------|
 | `SKILL.md` | Main skill — classification, 29 discovery domains, 7 phases, quick start recipes |
-| `coding-standards.md` | Universal architecture rules, security, testing, deployment checklist |
+| `coding-standards.md` | Universal architecture rules, security, CORS, rate limiting, file uploads, sessions, API versioning, error handling, logging, backup, deployment, testing. **Also works as a standalone skill.** |
 | `edge-cases.md` | Type-specific edge case checklists for systematic review |
 
 ## How it works

@@ -12,7 +12,7 @@ Systematic methodology for transforming raw client input into implementation-rea
 **Core principle:** No code until the analysis matches the project's complexity. Every ambiguity = tracked open question. Every assumption = documented decision.
 
 **Supporting files (read when needed):**
-- `coding-standards.md` — Architecture rules, security headers, CORS, error handling, logging, deployment, testing. Use when writing Phase 5 coding standards deliverable.
+- `coding-standards.md` — Universal architecture rules, security, CORS, rate limiting, file uploads, sessions, error handling, logging, deployment, testing. Also works as a standalone skill for any project. Use when writing Phase 5 coding standards deliverable.
 - `edge-cases.md` — Type-specific edge case checklists. Use when writing Phase 3.
 
 ## Before You Start: Brainstorming Gate
