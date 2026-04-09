@@ -1,6 +1,6 @@
 # New Laravel Project
 
-A Claude Code skill for starting new Laravel projects — from client discovery to implementation-ready documentation and coding standards.
+A Claude Code skill for starting new Laravel projects — from client discovery through implementation-ready documentation, coding standards, and into development using the full superpowers skill suite.
 
 ## What it does
 
@@ -29,6 +29,32 @@ Systematic methodology for the gap between "client says what they want" and "dev
 11. **Client-facing documents** — non-technical project description + time estimate in client's language
 12. **Final review** — cross-reference audit, blind spot analysis, consistency check
 
+## Full Project Lifecycle
+
+This skill integrates with 12 superpowers skills to cover the entire project from idea to production:
+
+```
+DISCOVERY & PLANNING
+  1. superpowers:brainstorming           → Shape vague idea (if needed)
+  2. new-laravel-project (this skill)    → Phases 1-7 discovery
+  3. superpowers:writing-plans           → Implementation plan from spec
+
+IMPLEMENTATION (per task)
+  4. superpowers:using-git-worktrees     → Isolate feature work
+  5. superpowers:test-driven-development → Write test FIRST
+  6. superpowers:systematic-debugging    → If bug or test failure
+  7. superpowers:verification-before-completion → Verify before claiming done
+  8. superpowers:requesting-code-review  → Review the work
+  9. superpowers:receiving-code-review   → Process review feedback
+  10. superpowers:finishing-a-development-branch → Merge / PR / cleanup
+
+PARALLELIZATION (when tasks are independent)
+  11. superpowers:subagent-driven-development
+  12. superpowers:dispatching-parallel-agents
+```
+
+**No code without a plan. No code without a test.**
+
 ## Installation
 
 ### Claude Code
@@ -43,6 +69,10 @@ Or clone manually:
 git clone https://github.com/BabicM/claude-new-laravel-project.git ~/.claude/skills/new-laravel-project
 ```
 
+### Prerequisites
+
+This skill works best with the [superpowers plugin](https://github.com/anthropics/claude-code-plugins) installed, which provides the implementation skills referenced in the lifecycle above.
+
 ### Manual usage
 
 The skill files are plain Markdown — readable and usable by any AI assistant or as a human checklist. Start with `SKILL.md`.
@@ -51,9 +81,9 @@ The skill files are plain Markdown — readable and usable by any AI assistant o
 
 | File | Purpose |
 |------|---------|
-| `SKILL.md` | Main skill — project classification, 29 discovery domains, 7 phases, quick start recipes |
-| `coding-standards.md` | Laravel architecture rules, security, CORS, rate limiting, file uploads, sessions, API versioning, error handling, logging, backup, deployment, testing. **Also works as a standalone skill.** |
-| `edge-cases.md` | Type-specific edge case checklists for systematic review |
+| `SKILL.md` | Main skill — project classification, 29 discovery domains, 7 phases, superpowers lifecycle, quick start recipes |
+| `coding-standards.md` | Laravel architecture rules, security (CORS, headers, CSP), rate limiting, file upload security, session management, API versioning, error handling, logging, backup & disaster recovery, deployment checklist, testing rules, 47 common mistakes. **Also works as a standalone skill.** |
+| `edge-cases.md` | Type-specific edge case checklists: universal (9 categories) + E-shop, Booking, Directory, LMS, Marketplace, SaaS, Portal |
 
 ## How it works
 
@@ -61,16 +91,29 @@ The skill files are plain Markdown — readable and usable by any AI assistant o
 Client input → Classify (T1/T2/T3) → Pick relevant domains → Ask questions
     → Use cases → Edge cases → Open questions → Tech recommendations
     → Notifications → Design → Time estimate → Coding standards
-    → Client docs → Final review → Ready for implementation planning
+    → Client docs → Final review → Writing plans → Implementation
 ```
 
 The skill auto-scales: a T1 brochure site skips 80% of the process. A T3 marketplace gets the full treatment.
 
+## Coding Standards Highlights
+
+The `coding-standards.md` file covers 19 architecture categories with 47 common mistakes. Key sections:
+
+- **Code Architecture** — strict typing, services, validation, authorization, events, enums, named routes
+- **Security** — CORS policy (7 rules), security headers (7 + CSP), rate limiting, file upload security, session management
+- **Data** — migrations (schema only), factories/seeders, indexing, soft delete policy
+- **Operations** — deployment checklist (6 stages), backup & disaster recovery (RTO/RPO), logging, environment management
+- **Quality** — test pyramid, TDD, CI enforcement, accessibility (EU 2025 legal requirement)
+- **API** — versioning strategy, error response consistency, breaking change policy
+
 ## Key design decisions
 
 - **Laravel-focused** — coding standards, architecture rules, and recommendations tailored for Laravel ecosystem
+- **Superpowers-integrated** — full project lifecycle from brainstorming through implementation with 12 skill invocation points
 - **Brainstorming gate** — if the client has a vague idea ("I want an app for X"), the skill redirects to brainstorming first, then returns for structured analysis
 - **Open question tracking** — every ambiguity becomes a tracked OQ with options and recommendations, not a silent assumption
+- **No code without a plan, no code without a test** — enforced via superpowers:writing-plans and superpowers:test-driven-development
 
 ## License
 
