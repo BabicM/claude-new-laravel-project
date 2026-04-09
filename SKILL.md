@@ -12,8 +12,54 @@ Systematic methodology for transforming raw client input into implementation-rea
 **Core principle:** No code until the analysis matches the project's complexity. Every ambiguity = tracked open question. Every assumption = documented decision.
 
 **Supporting files (read when needed):**
-- `coding-standards.md` — Universal architecture rules, security, CORS, rate limiting, file uploads, sessions, error handling, logging, deployment, testing. Also works as a standalone skill for any project. Use when writing Phase 5 coding standards deliverable.
+- `coding-standards.md` — Laravel architecture rules, security, CORS, rate limiting, file uploads, sessions, error handling, logging, deployment, testing. Also works as a standalone skill. Use when writing Phase 5 coding standards deliverable.
 - `edge-cases.md` — Type-specific edge case checklists. Use when writing Phase 3.
+
+## Required Superpowers Skills
+
+**You MUST use these skills at the appropriate phase.** This is not optional — each skill enforces discipline that prevents costly mistakes.
+
+### Project Lifecycle Flow
+
+```
+Discovery & Planning:
+  superpowers:brainstorming          → Before discovery if client has vague idea
+  THIS SKILL (new-laravel-project)   → Discovery phases 1-7
+  superpowers:writing-plans          → After spec is approved, create implementation plan
+
+Implementation:
+  superpowers:executing-plans        → Execute the plan in a separate session
+  superpowers:subagent-driven-development → Execute independent tasks in parallel
+  superpowers:dispatching-parallel-agents → When 2+ tasks have no dependencies
+  superpowers:test-driven-development    → Before writing ANY implementation code
+  superpowers:using-git-worktrees    → Isolate feature work from main workspace
+  superpowers:systematic-debugging   → When any bug or unexpected behavior occurs
+
+Quality & Review:
+  superpowers:requesting-code-review → After completing a task or feature
+  superpowers:receiving-code-review  → When processing review feedback
+  superpowers:verification-before-completion → Before claiming work is done
+
+Completion:
+  superpowers:finishing-a-development-branch → When implementation is complete, decide merge/PR/cleanup
+```
+
+### When to Use Each Skill
+
+| Skill | When | Why |
+|-------|------|-----|
+| **brainstorming** | Client has vague idea, can't describe features | Shapes the idea before structured discovery begins |
+| **writing-plans** | Spec approved, ready to plan implementation | Creates step-by-step plan from spec — no code without a plan |
+| **executing-plans** | Have a written plan, starting implementation | Executes plan with review checkpoints between steps |
+| **subagent-driven-development** | Plan has independent tasks | Parallelizes work via subagents for faster execution |
+| **dispatching-parallel-agents** | 2+ tasks with no shared state | Runs independent tasks simultaneously |
+| **test-driven-development** | Before writing ANY feature or bugfix code | Write test first, watch it fail, then implement. No exceptions. |
+| **using-git-worktrees** | Starting feature work | Isolates work so main branch stays clean |
+| **systematic-debugging** | Bug, test failure, unexpected behavior | Diagnose root cause before proposing fixes — no guessing |
+| **requesting-code-review** | Task/feature complete | Verifies work meets requirements before merge |
+| **receiving-code-review** | Got review feedback | Evaluate feedback technically — don't blindly agree or dismiss |
+| **verification-before-completion** | About to claim "done" | Run verification commands, confirm output. Evidence before assertions. |
+| **finishing-a-development-branch** | All tests pass, ready to integrate | Structured decision: merge, PR, or cleanup |
 
 ## Before You Start: Brainstorming Gate
 
