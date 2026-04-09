@@ -34,13 +34,13 @@ Systematic methodology for the gap between "client says what they want" and "dev
 ### Claude Code
 
 ```bash
-claude skill install github:BabicM/claude-new-php-project
+claude skill install github:BabicM/claude-new-laravel-project
 ```
 
 Or clone manually:
 
 ```bash
-git clone https://github.com/BabicM/claude-new-php-project.git ~/.claude/skills/new-laravel-project
+git clone https://github.com/BabicM/claude-new-laravel-project.git ~/.claude/skills/new-laravel-project
 ```
 
 ### Manual usage
