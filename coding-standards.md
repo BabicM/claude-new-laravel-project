@@ -1,13 +1,13 @@
 ---
-name: coding-standards
-description: Use when starting any custom-built web project, setting up a new codebase, or defining architecture rules before writing code. Covers code architecture, security headers, CORS, error handling, logging, deployment, testing, and common mistakes.
+name: laravel-coding-standards
+description: Use when starting any new Laravel project, setting up a new codebase, or defining architecture rules before writing code. Covers code architecture, security headers, CORS, error handling, logging, deployment, testing, and common mistakes.
 ---
 
 # Coding Standards & Architecture Rules
 
-Universal architecture rules and coding standards for any custom-built web project, regardless of tech stack.
+Architecture rules and coding standards for Laravel projects.
 
-**Use standalone** for any new project, or as part of the `project-discovery-to-spec` skill (Phase 5 deliverable).
+**Use standalone** for any new Laravel project, or as part of the `new-laravel-project` skill (Phase 5 deliverable).
 
 ---
 

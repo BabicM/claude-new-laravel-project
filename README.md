@@ -1,6 +1,6 @@
-# Project Discovery to Spec
+# New Laravel Project
 
-A Claude Code skill that transforms raw client requirements into implementation-ready documentation for any web project type.
+A Claude Code skill for starting new Laravel projects — from client discovery to implementation-ready documentation and coding standards.
 
 ## What it does
 
@@ -25,7 +25,7 @@ Systematic methodology for the gap between "client says what they want" and "dev
 7. **Design requirements** — brand assets checklist, page complexity, accessibility
 8. **Time estimation** — by module, optimistic/realistic, dependency map
 9. **Maintenance plan** — post-launch support, data retention, handover
-10. **Coding standards** — architecture rules, security headers, CORS, testing, deployment
+10. **Coding standards** — Laravel architecture rules, security headers, CORS, testing, deployment
 11. **Client-facing documents** — non-technical project description + time estimate in client's language
 12. **Final review** — cross-reference audit, blind spot analysis, consistency check
 
@@ -33,17 +33,14 @@ Systematic methodology for the gap between "client says what they want" and "dev
 
 ### Claude Code
 
-Add to your project's `.claude/settings.json` or install as a personal skill:
-
 ```bash
-# Personal skill (available in all projects)
 claude skill install github:BabicM/claude-new-php-project
 ```
 
 Or clone manually:
 
 ```bash
-git clone https://github.com/BabicM/claude-new-php-project.git ~/.claude/skills/project-discovery-to-spec
+git clone https://github.com/BabicM/claude-new-php-project.git ~/.claude/skills/new-laravel-project
 ```
 
 ### Manual usage
@@ -54,8 +51,8 @@ The skill files are plain Markdown — readable and usable by any AI assistant o
 
 | File | Purpose |
 |------|---------|
-| `SKILL.md` | Main skill — classification, 29 discovery domains, 7 phases, quick start recipes |
-| `coding-standards.md` | Universal architecture rules, security, CORS, rate limiting, file uploads, sessions, API versioning, error handling, logging, backup, deployment, testing. **Also works as a standalone skill.** |
+| `SKILL.md` | Main skill — project classification, 29 discovery domains, 7 phases, quick start recipes |
+| `coding-standards.md` | Laravel architecture rules, security, CORS, rate limiting, file uploads, sessions, API versioning, error handling, logging, backup, deployment, testing. **Also works as a standalone skill.** |
 | `edge-cases.md` | Type-specific edge case checklists for systematic review |
 
 ## How it works
@@ -71,8 +68,7 @@ The skill auto-scales: a T1 brochure site skips 80% of the process. A T3 marketp
 
 ## Key design decisions
 
-- **Technology-agnostic** — works with any stack (Laravel, Django, Rails, Next.js, etc.)
-- **Region-agnostic** — no hardcoded services, carriers, or locale assumptions
+- **Laravel-focused** — coding standards, architecture rules, and recommendations tailored for Laravel ecosystem
 - **Brainstorming gate** — if the client has a vague idea ("I want an app for X"), the skill redirects to brainstorming first, then returns for structured analysis
 - **Open question tracking** — every ambiguity becomes a tracked OQ with options and recommendations, not a silent assumption
 

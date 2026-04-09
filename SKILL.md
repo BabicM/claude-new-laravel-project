@@ -1,6 +1,6 @@
 ---
-name: project-discovery-to-spec
-description: Use when starting any new web project from scratch - presentation sites, e-shops, booking systems, marketplaces, directories, LMS, SaaS, portals, intranets, complex platforms. Triggers - new project kickoff, client onboarding, building a spec from discovery, turning vague requirements into structured documentation. Scales from simple single-page sites (15 questions, 3 deliverables) to complex platforms (100 questions, 13 deliverables).
+name: new-laravel-project
+description: Use when starting any new Laravel web project from scratch - presentation sites, e-shops, booking systems, marketplaces, directories, LMS, SaaS, portals, intranets, complex platforms. Triggers - new project kickoff, client onboarding, building a spec from discovery, turning vague requirements into structured documentation. Scales from simple single-page sites (15 questions, 3 deliverables) to complex platforms (100 questions, 13 deliverables).
 ---
 
 # Project Discovery to Spec
