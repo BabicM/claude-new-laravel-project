@@ -37,13 +37,13 @@ Add to your project's `.claude/settings.json` or install as a personal skill:
 
 ```bash
 # Personal skill (available in all projects)
-claude skill install github:YOUR_USERNAME/project-discovery-to-spec
+claude skill install github:BabicM/claude-new-php-project
 ```
 
 Or clone manually:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/project-discovery-to-spec.git ~/.claude/skills/project-discovery-to-spec
+git clone https://github.com/BabicM/claude-new-php-project.git ~/.claude/skills/project-discovery-to-spec
 ```
 
 ### Manual usage
